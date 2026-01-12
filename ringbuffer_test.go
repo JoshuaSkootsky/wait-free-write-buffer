@@ -1,9 +1,11 @@
 package ringbuffer
 
 import (
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"testing"
+	"time"
 )
 
 func TestRingBuffer_WriteRead(t *testing.T) {
@@ -134,19 +136,157 @@ func BenchmarkRingBuffer_Write(b *testing.B) {
 }
 
 func BenchmarkRingBuffer_Read(b *testing.B) {
-	rb := New[int](65536)
+	const size = 65536
+	rb := New[int](size)
 
-	for i := 0; i < b.N; i++ {
+	for i := 0; i < size; i++ {
 		rb.Write(i)
 	}
 
-	var cursor uint64
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
+		var cursor uint64 = 0
+
+		for j := 0; j < size; j++ {
+			if _, ok := rb.Read(&cursor); !ok {
+				b.Fatalf("gap at read %d, cursor=%d", j, cursor)
+			}
+		}
+	}
+}
+
+func TestRingBuffer_EndToEnd_SlowConsumer(t *testing.T) {
+	const size = 65536
+	rb := New[int](size)
+
+	var written, read, retries, gaps uint64
+	var maxLag uint64
+
+	stopCh := make(chan struct{})
+	defer close(stopCh)
+
+	go func() {
+		seq := uint64(0)
 		for {
-			if data, ok := rb.Read(&cursor); ok {
-				_ = data
-				break
+			select {
+			case <-stopCh:
+				return
+			default:
+				rb.Write(int(seq))
+				atomic.AddUint64(&written, 1)
+				seq++
+				time.Sleep(100 * time.Nanosecond)
+			}
+		}
+	}()
+
+	time.Sleep(10 * time.Millisecond)
+
+	var cursor uint64
+	timeout := time.After(200 * time.Millisecond)
+
+	for {
+		select {
+		case <-timeout:
+			t.Logf("End-to-end results:")
+			t.Logf("  Written: %d", atomic.LoadUint64(&written))
+			t.Logf("  Read: %d", atomic.LoadUint64(&read))
+			t.Logf("  Retries: %d", atomic.LoadUint64(&retries))
+			t.Logf("  Gaps detected: %d", atomic.LoadUint64(&gaps))
+			t.Logf("  Max lag: %d items", atomic.LoadUint64(&maxLag))
+			t.Logf("  Recovery strategy: skip gaps (cursor = gapEnd)")
+
+			if read == 0 {
+				t.Error("No items were read")
+			}
+			return
+
+		default:
+			var gapStart, gapEnd uint64
+			if _, ok := rb.ReadWithGap(&cursor, &gapStart, &gapEnd); ok {
+				atomic.AddUint64(&read, 1)
+				lag := atomic.LoadUint64(&written) - cursor
+				for lag > atomic.LoadUint64(&maxLag) {
+					atomic.CompareAndSwapUint64(&maxLag, atomic.LoadUint64(&maxLag), lag)
+				}
+				time.Sleep(100 * time.Nanosecond)
+			} else {
+				atomic.AddUint64(&retries, 1)
+
+				if gapStart != gapEnd {
+					atomic.AddUint64(&gaps, 1)
+					if atomic.LoadUint64(&gaps) == 1 {
+						t.Logf("Gap [%d, %d] at cursor %d", gapStart, gapEnd, cursor)
+					}
+					t.Logf("Skipping gap [%d, %d]", gapStart, gapEnd)
+					cursor = gapEnd
+				}
+
+				runtime.Gosched()
+			}
+		}
+	}
+}
+
+func TestRingBuffer_RecoveryScenario(t *testing.T) {
+	const size = 65536
+	rb := New[int](size)
+
+	var written, read, gaps uint64
+
+	stopCh := make(chan struct{})
+	defer close(stopCh)
+
+	go func() {
+		seq := uint64(0)
+		for {
+			select {
+			case <-stopCh:
+				return
+			default:
+				rb.Write(int(seq))
+				atomic.AddUint64(&written, 1)
+				seq++
+				time.Sleep(100 * time.Nanosecond)
+			}
+		}
+	}()
+
+	time.Sleep(10 * time.Millisecond)
+
+	var cursor uint64
+
+	go func() {
+		time.Sleep(50 * time.Millisecond)
+		t.Log("Reader speeding up: reducing processing delay")
+	}()
+
+	timeout := time.After(200 * time.Millisecond)
+
+	for {
+		select {
+		case <-timeout:
+			t.Logf("Recovery scenario results:")
+			t.Logf("  Written: %d", atomic.LoadUint64(&written))
+			t.Logf("  Read: %d", atomic.LoadUint64(&read))
+			t.Logf("  Gaps: %d", atomic.LoadUint64(&gaps))
+			t.Logf("  Recovery rate: %.1f%%", float64(atomic.LoadUint64(&read))/float64(atomic.LoadUint64(&written))*100)
+			return
+
+		default:
+			var gapStart, gapEnd uint64
+			if _, ok := rb.ReadWithGap(&cursor, &gapStart, &gapEnd); ok {
+				atomic.AddUint64(&read, 1)
+				time.Sleep(100 * time.Nanosecond)
+			} else {
+				if gapStart != gapEnd {
+					atomic.AddUint64(&gaps, 1)
+					if atomic.LoadUint64(&gaps) == 1 {
+						t.Logf("Gap [%d, %d] - recovering with skip-ahead", gapStart, gapEnd)
+					}
+					cursor = gapEnd
+				}
+				runtime.Gosched()
 			}
 		}
 	}

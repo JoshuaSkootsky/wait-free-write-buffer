@@ -2,24 +2,6 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: MPL-2.0](https://img.shields.io/github/license/JoshuaSkootsky/wait-free-write-buffer)](LICENSE)
 
-## License: MPL-2.0 OR Commercial
-
-This library is dual-licensed under:
-
-| Use Case | License | Cost | Requirements |
-|----------|---------|------|--------------|
-| Open source projects | MPL-2.0 | Free | Must open-source your application |
-| Commercial use | Commercial | $5,000/year | No open-source requirement |
-
-**MPL-2.0**: Strong copyleft license. Free to use, but if you deploy this
-software as part of a networked service, you must release your application's
-source code under MPL-2.0 or compatible terms.
-
-**Commercial License**: Private use without open-source obligations.
-Includes priority support and custom integration assistance.
-
-[Get commercial license](mailto:joshua.skootsky@gmail.com) | [MPL-2.0 License](LICENSE)
-
 ## Features
 
 - **Wait-Free Writes**: Writer never blocks or fails (O(1) guaranteed)
@@ -358,3 +340,19 @@ buffer := rb.New[MyType](1024)  // or 2048, 4096, etc.
 - Telemetry and metrics collection
 - Game server state updates
 - Event sourcing with bounded memory
+
+## License: MPL-2.0 OR Commercial
+
+This library is dual-licensed under:
+
+| Use Case | License | Cost | Requirements |
+|----------|---------|------|--------------|
+| Open source projects | MPL-2.0 | Free |
+| Commercial use | Commercial | $5,000/year  |
+
+**MPL-2.0**: Copyleft license. Free to use but you must abide by its terms of file level copyleft licensure. 
+
+**Commercial License**: Private use without open-source obligations.
+Includes priority support and custom integration assistance.
+
+[Get commercial license](mailto:joshua.skootsky@gmail.com) | [MPL-2.0 License](LICENSE)

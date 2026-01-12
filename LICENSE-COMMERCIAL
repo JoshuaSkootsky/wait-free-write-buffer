@@ -1,23 +1,75 @@
-Commercial License
+COMMERCIAL LICENSE INFORMATION
 
-This software is also available under a commercial license.
+Project: Wait Free Write Buffer (Ring Buffer)
+Author: Joshua Skootsky
+Contact: joshua.skootsky@gmail.com
 
-For commercial licensing inquiries, please contact:
+This software is dual-licensed. This means you may choose to use this 
+software under the terms of either the Mozilla Public License v2.0 (MPL) 
+or a separate Commercial License provided by the author.
+
+-----------------------------------------------------------------------
+WHY A COMMERCIAL LICENSE?
+-----------------------------------------------------------------------
+While the MPL allows for the integration of this library into proprietary 
+Go applications, it requires that any modifications to the library's 
+source files be made public. 
+
+The Commercial License is designed for organizations that require:
+1. Use of the software without the file-level copyleft obligations of the MPL.
+2. Legal certainties, including warranties and indemnification not 
+   provided by the standard open-source license.
+3. Direct access to the author for integration and performance tuning.
+
+-----------------------------------------------------------------------
+COMMERCIAL TERMS
+-----------------------------------------------------------------------
+Pricing: $5,000 USD per year, per deployment/application.
+
+The Commercial License grants:
+- Full Production Rights: Use of the library in closed-source 
+  environments without any obligation to share modifications.
+- Priority Support and integration assistance: Technical assistance with a guaranteed response.
+  time for issues related to the write buffer's implementation.
+- Custom Development: Priority in the feature roadmap and potential 
+  for custom-developed extensions.
+- Volume Licensing: Negotiable terms are available for large-scale 
+  infrastructure or high-volume distributions.
+
+-----------------------------------------------------------------------
+INQUIRIES
+-----------------------------------------------------------------------
+For formal quotes, custom agreements, or to purchase a license, please 
+contact:
 
 Joshua Skootsky
 Email: joshua.skootsky@gmail.com
 
-Commercial licenses are available for production use without the obligations
-of the AGPL-3.0 license (no requirement to open-source your application).
+If you do not purchase a commercial license, your use of this software 
+is strictly governed by the Mozilla Public License v2.0, found in the 
+LICENSE file of this repository.
 
-Commercial Pricing: $5,000 per year per deployment
+-----------------------------------------------------------------------
+DEFINITION OF "DEPLOYMENT"
+-----------------------------------------------------------------------
+A "deployment" is defined as one (1) distinct Go application, service, 
+or microservice that incorporates this library, regardless of the number 
+of instances, replicas, or processes running concurrently.
 
-The commercial license grants:
-- Production use rights without open-source requirements
-- Priority support
-- Custom development and integration assistance
-- Negotiable terms for high-volume deployments
+Examples:
+- A single microservice compiled into a binary that uses this library 
+  counts as ONE deployment, even if you run 100 replicas in production.
+- Three different microservices each using the library count as THREE 
+  deployments.
+- A CLI tool distributed to end-users counts as ONE deployment.
+- A mobile or desktop application using the library counts as ONE 
+  deployment per platform (iOS, Android, Windows, etc.).
 
-See LICENSE for the open-source license terms, which permits free
-use subject to AGPL-3.0 obligations (requires open-sourcing applications
-that use this software).
+EXCLUSIONS (do not count toward deployment limits):
+- Development, testing, and CI/CD build environments
+- Local developer workstations
+- Staging, QA, or pre-production environments
+- Short-lived feature branch deployments
+
+For clarification on your specific use case, please contact us at 
+joshua.skootsky@gmail.com before purchasing.

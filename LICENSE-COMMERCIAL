@@ -7,19 +7,17 @@ For commercial licensing inquiries, please contact:
 Joshua Skootsky
 Email: joshua.skootsky@gmail.com
 
-Commercial licenses are available for:
-- Production use in HFT firms
-- Game studios and game development
-- Enterprise deployments
-- Embedded use in commercial products
+Commercial licenses are available for production use without the obligations
+of the AGPL-3.0 license (no requirement to open-source your application).
 
-Commercial Pricing: $5,000/year per deployment
-
-See LICENSE-BUSL-1.1 for the Business Source License terms, which permits
-non-production use free of charge.
+Commercial Pricing: $5,000 per year per deployment
 
 The commercial license grants:
-- Production use rights
+- Production use rights without open-source requirements
 - Priority support
 - Custom development and integration assistance
 - Negotiable terms for high-volume deployments
+
+See LICENSE-AGPL-3.0 for the open-source license terms, which permits free
+use subject to AGPL-3.0 obligations (requires open-sourcing applications
+that use this software).

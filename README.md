@@ -1,15 +1,24 @@
 # Wait-Free Write Buffer
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: BUSL-1.1](https://img.shields.io/badge/License-BUSL--1.1-blue.svg)](LICENSE-BUSL-1.1)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE-AGPL-3.0)
 
-## License: Business Source License 1.1
+## License: AGPL-3.0 OR Commercial
 
-**Free for non-production use forever**  
-**Production use requires a commercial license until 2029**
+This library is dual-licensed under:
 
-**Commercial Pricing**: $5,000/year per deployment
+| Use Case | License | Cost | Requirements |
+|----------|---------|------|--------------|
+| Open source projects | AGPL-3.0 | Free | Must open-source your application |
+| Commercial use | Commercial | $5,000/year | No open-source requirement |
 
-[Get license](mailto:joshua.skootsky@gmail.com) | [Full license text](LICENSE-BUSL-1.1) | [Apache 2.0 (2029)](LICENSE-APACHE-2.0)
+**AGPL-3.0**: Strong copyleft license. Free to use, but if you deploy this
+software as part of a networked service, you must release your application's
+source code under AGPL-3.0 or compatible terms.
+
+**Commercial License**: Private use without open-source obligations.
+Includes priority support and custom integration assistance.
+
+[Get commercial license](mailto:joshua.skootsky@gmail.com) | [AGPL-3.0 License](LICENSE-AGPL-3.0)
 
 ## Features
 

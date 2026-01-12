@@ -96,17 +96,17 @@ Extended read with gap detection. If a gap is detected, gapStart and gapEnd are 
 	│                        RingBuffer[T]                        │
 	├─────────────────────────────────────────────────────────────┤
 	│  ┌─────────────────────────────────────────────────────┐    │
-	│  │                 writerCursor (64 bytes)              │    │
-	│  │                 atomic.Uint64                        │    │
+	│  │                 writerCursor (64 bytes)             │    │
+	│  │                 atomic.Uint64                       │    │
 	│  └─────────────────────────────────────────────────────┘    │
 	│  ┌─────────────────────────────────────────────────────┐    │
-	│  │                     Slot[T] x N                      │    │
+	│  │                     Slot[T] x N                     │    │
 	│  │  ┌─────────┬───────────────────────────────┐        │    │
 	│  │  │sequence │ data [padded to 64 bytes]     │        │    │
 	│  │  │(8 bytes)│                               │        │    │
 	│  │  └─────────┴───────────────────────────────┘        │    │
 	│  │                                                     │    │
-	│  │  Each slot is 64 bytes for cache-line alignment    │    │
+	│  │  Each slot is 64 bytes for cache-line alignment     │    │
 	│  └─────────────────────────────────────────────────────┘    │
 	└─────────────────────────────────────────────────────────────┘
 

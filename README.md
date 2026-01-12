@@ -13,7 +13,7 @@ A high-performance, lock-free ring buffer for single-writer, multiple-reader sce
 
 ## Installation
 
-	go get github.com/JoshuaSkootsky/ringbuffer
+	go get github.com/JoshuaSkootsky/wait-free-write-buffer
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ A high-performance, lock-free ring buffer for single-writer, multiple-reader sce
 	import (
 	    "fmt"
 	    "time"
-	    rb "github.com/JoshuaSkootsky/ringbuffer"
+	    rb "github.com/JoshuaSkootsky/wait-free-write-buffer"
 	)
 	
 	type MarketData struct {

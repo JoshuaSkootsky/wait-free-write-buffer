@@ -1,8 +1,15 @@
 # Wait-Free Write Buffer
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: BUSL-1.1](https://img.shields.io/badge/License-BUSL--1.1-blue.svg)](LICENSE-BUSL-1.1)
 
-A high-performance, lock-free ring buffer for single-writer, multiple-reader scenarios where write latency is critical and bounded memory is required.
+## License: Business Source License 1.1
+
+**Free for non-production use forever**  
+**Production use requires a commercial license until 2029**
+
+**Commercial Pricing**: $5,000/year per deployment
+
+[Get license](mailto:joshua.skootsky@gmail.com) | [Full license text](LICENSE-BUSL-1.1) | [Apache 2.0 (2029)](LICENSE-APACHE-2.0)
 
 ## Features
 

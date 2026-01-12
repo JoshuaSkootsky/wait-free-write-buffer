@@ -1,3 +1,12 @@
+// Copyright (c) 2025 Joshua Skootsky
+//
+// Licensed under the Business Source License 1.1
+// You may use this file only in compliance with one of:
+// 1. BSL-1.1 (non-production use is free)
+// 2. Commercial License (contact for pricing)
+//
+// After 4 years (2029-01-01), this becomes Apache-2.0
+
 package ringbuffer
 
 import (

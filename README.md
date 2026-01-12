@@ -1,6 +1,6 @@
 # Wait-Free Write Buffer
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: MPL-2.0](https://img.shields.io/badge/License-MPL-2.0-blue.svg)](LICENSE)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: MPL-2.0](https://img.shields.io/github/license/JoshuaSkootsky/wait-free-write-buffer)](LICENSE)
 
 ## License: MPL-2.0 OR Commercial
 

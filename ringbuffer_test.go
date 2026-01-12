@@ -1,11 +1,11 @@
 // Copyright (c) 2025 Joshua Skootsky
 //
-// Licensed under the Business Source License 1.1
-// You may use this file only in compliance with one of:
-// 1. BSL-1.1 (non-production use is free)
-// 2. Commercial License (contact for pricing)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// After 4 years (2029-01-01), this becomes Apache-2.0
+// Alternatively, you can license this code under a commercial license.
+// Contact: joshua.skootsky@gmail.com
 
 package ringbuffer
 

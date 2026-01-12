@@ -1,24 +1,24 @@
 # Wait-Free Write Buffer
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JoshuaSkootsky/wait-free-write-buffer.svg)](https://pkg.go.dev/github.com/JoshuaSkootsky/wait-free-write-buffer) [![Go Report Card](https://goreportcard.com/badge/github.com/JoshuaSkootsky/wait-free-write-buffer)](https://goreportcard.com/report/github.com/JoshuaSkootsky/wait-free-write-buffer) [![License: MPL-2.0](https://img.shields.io/badge/License-MPL-2.0-blue.svg)](LICENSE)
 
-## License: AGPL-3.0 OR Commercial
+## License: MPL-2.0 OR Commercial
 
 This library is dual-licensed under:
 
 | Use Case | License | Cost | Requirements |
 |----------|---------|------|--------------|
-| Open source projects | AGPL-3.0 | Free | Must open-source your application |
+| Open source projects | MPL-2.0 | Free | Must open-source your application |
 | Commercial use | Commercial | $5,000/year | No open-source requirement |
 
-**AGPL-3.0**: Strong copyleft license. Free to use, but if you deploy this
+**MPL-2.0**: Strong copyleft license. Free to use, but if you deploy this
 software as part of a networked service, you must release your application's
-source code under AGPL-3.0 or compatible terms.
+source code under MPL-2.0 or compatible terms.
 
 **Commercial License**: Private use without open-source obligations.
 Includes priority support and custom integration assistance.
 
-[Get commercial license](mailto:joshua.skootsky@gmail.com) | [AGPL-3.0 License](LICENSE)
+[Get commercial license](mailto:joshua.skootsky@gmail.com) | [MPL-2.0 License](LICENSE)
 
 ## Features
 

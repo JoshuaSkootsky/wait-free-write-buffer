@@ -5,7 +5,7 @@
 ## Features
 
 - **Wait-Free Writes**: Writer never blocks or fails (O(1) guaranteed)
-- **Multiple Readers**: Each reader tracks its own position with zero contention
+- **SPMC (Single Producer, Multiple Consumers)**: One writer, many readers each with independent cursors
 - **Gap Detection**: Readers detect when they've fallen behind and data was overwritten
 - **Cache-Line Aligned**: Memory layout optimized to prevent false sharing
 - **Zero Allocations**: No heap allocations on hot path after initialization
@@ -147,8 +147,10 @@ func (rb *RingBuffer[T]) ReadWithGap(cursor *uint64, gapStart, gapEnd *uint64) (
 Extended read that detects when data has been overwritten.
 
 - Returns `(data, true)` on success
-- Returns `(zero, false)` if no new data
-- If a gap is detected, sets `gapStart` and `gapEnd` to the lost sequence range
+- Returns `(zero, false)` if no new data is available
+- If a gap is detected (slot.sequence > expected), sets `gapStart`/`gapEnd` and returns `(zero, false)`
+
+A gap is detected when the reader has fallen behind and the writer has overwritten data. Use `gapStart > 0` to distinguish a gap from "no data yet":
 
 ```go
 var cursor uint64
@@ -161,8 +163,9 @@ for {
     case ok:
         process(data)
     case gapStart > 0:
-        // Data was dropped! Recover from gapStart to gapEnd
+        // Data was dropped! Lost sequence from gapStart to gapEnd
         handleGap(gapStart, gapEnd)
+        cursor = gapEnd  // Skip to end of gap
         gapStart, gapEnd = 0, 0  // Reset gap markers
     default:
         // No data available yet
@@ -200,7 +203,7 @@ for {
     } else if gapStart > 0 {
         // Lost data from gapStart to gapEnd
         recoverFromSnapshot(gapStart, gapEnd)
-        cursor = gapEnd  // Skip to end of gap
+        cursor = gapEnd  // Skip to end of gap to resume reading
         gapStart, gapEnd = 0, 0
     }
     // else: no data available yet
@@ -255,10 +258,12 @@ Recovery strategies:
 
 **Verified January 12, 2026** on Intel(R) Core(TM) i5-10600K CPU @ 4.10GHz, Go 1.21:
 
-| Operation | Latency | Throughput |
-|-----------|---------|------------|
-| Write | 13-28 ns/op | ~36-77M ops/s |
-| Read | 90-108 ns/op | ~9-11M ops/s |
+| Operation | p50 Latency | p99 Latency | Throughput |
+|-----------|-------------|-------------|------------|
+| Write | ~15 ns/op | ~30 ns/op | ~50-70M ops/s |
+| Read | ~100 ns/op | ~200 ns/op | ~8-10M ops/s |
+
+Benchmark code available in `ringbuffer_test.go` (run with `go test -bench=. -benchmem`).
 
 ### Slow Consumer Behavior
 
@@ -272,7 +277,7 @@ When a reader cannot keep up with the writer:
 ## When to Use This
 
 **Use when:**
-- Single writer, multiple readers
+- Single writer, multiple readers (SPMC pattern)
 - Write latency is critical (cannot block)
 - Bounded memory is required
 - Occasional data loss is acceptable or recoverable
@@ -327,8 +332,8 @@ buffer := rb.New[MyType](1024)  // or 2048, 4096, etc.
 
 ## Thread Safety
 
-- **Single writer**: `Write()` must be called from at most one goroutine
-- **Multiple readers**: Each reader uses its own cursor (no shared state)
+- **Single writer**: `Write()` must be called from at most one goroutine (SPMC: Single Producer)
+- **Multiple readers**: Each reader uses its own cursor (Multiple Consumers, no shared state)
 - **Lock-free**: No mutexes or channels on hot path
 - **Memory ordering**: Go's atomic package provides acquire/release semantics
 
